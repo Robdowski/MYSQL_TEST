@@ -1,10 +1,15 @@
 // Update with your config settings.
-
+require('dotenv').config()
 module.exports = {
 
   development: {
     client: 'mysql',
-    connection: process.env.MYSQL_CONNECTION
+    connection: {
+      host : '160.153.141.46',
+      user : process.env.MYSQL_USER,
+      password : process.env.MYSQL_PASSWORD,
+      database : process.env.MYSQL_DATABASE
+  },
   },
 
   staging: {
