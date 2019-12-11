@@ -2,9 +2,23 @@ require('dotenv').config()
 const express = require('express')
 const server = express()
 
+const graphQLHTTP = require('express-graphql')
+
+const schema = require('./schema')
+const { getLanceData, getTraderUsers } = require('./requests')
 
 
-server.use(express.json())
+const root = {
+    tradersData: getLanceData,
+    tradersUsers: getTraderUsers
+}
+
+server.use('/graphql', graphQLHTTP({
+    schema,
+    rootValue: root,
+    graphiql: true,
+}))
+
 
 const dataRouter = require('./model_data/dataRouter')
 server.use('/api/data', dataRouter)
