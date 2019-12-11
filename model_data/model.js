@@ -8,5 +8,9 @@ const getUsers = () => {
    return db('users')
 }
 
+const getUsersBy = args => {
+   return db('users').whereNotNull(args)
+}
 
-module.exports = { getData, getUsers }
+
+module.exports = { getData, getUsers, getUsersBy }

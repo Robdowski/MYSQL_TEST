@@ -7,7 +7,6 @@ const graphQLHTTP = require('express-graphql')
 const schema = require('./schema')
 const { getLanceData, getTraderUsers } = require('./requests')
 
-
 const root = {
     tradersData: getLanceData,
     tradersUsers: getTraderUsers

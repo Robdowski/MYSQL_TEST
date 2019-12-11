@@ -1,4 +1,4 @@
-const data = require('./model_data/model')
+const data = require("./model_data/model");
 
 const getLanceData = async args => {
   const lanceData = await data.getData();
@@ -8,21 +8,21 @@ const getLanceData = async args => {
   } else return lanceData;
 };
 
-
 const getTraderUsers = async args => {
-  let filtered = [];
-  const traderUsers = await data.getUsers();
-  if (args.gender) {
-    const { gender } = args;
-    filtered = traderUsers.filter(trader => trader.gender === gender);
-  }
+    let traderUsers = []
+    if (args.length === 1){
+        traderUsers = await data.getUsersBy(args)
+    } else {
+        traderUsers = await data.getUsers();
+    }
 
-  if (args.age) {
-    const { age } = args;
-    filtered = filtered.filter(trader => trader.age === age);
-  }
-  return filtered;
-};
+    let filtered = traderUsers;
+    for (let arg in args) {
+        console.log(args[arg])
+        filtered = filtered.filter(trader => trader[arg] === args[arg] )
+    }
+    return filtered;
+}
 
 module.exports = {
   getLanceData,
