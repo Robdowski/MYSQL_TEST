@@ -30,7 +30,7 @@ class Queries extends React.Component {
                     ({ loading, error, data }) => {
                         if (loading) return <h2>Loading...</h2>
                         if (error) console.log(error)
-        console.log(data)
+                        console.log(data)
                         return <Traders data={data.tradersData} /> // Your component would receive data as props. Maybe the component rendering charts?
                     }
                 }
