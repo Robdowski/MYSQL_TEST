@@ -7,5 +7,9 @@ const getData = () => {
       .limit(75)
 }
 
+const getUsers = () => {
+   return db('users')
+}
 
-module.exports = { getData }
+
+module.exports = { getData, getUsers }

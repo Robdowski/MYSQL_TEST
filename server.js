@@ -3,24 +3,15 @@ const express = require('express')
 const server = express()
 const graphqlHTTP = require('express-graphql');
 const { buildSchema } = require('graphql');
+const cors = require("cors");
 
 const dataRouter = require('./model_data/dataRouter')
 const data = require("./model_data/model")
 
 const schema = buildSchema(`
     type Query {
-        course(id: Int!): Course
-        courses(topic: String): [Course]
         tradersData(request_value: String): [SautiTrader]
-    }
-
-    type Course {
-        id: Int
-        title: String
-        author: String
-        description: String
-        topic: String
-        url: String
+        tradersUsers(gender: String, age: String): [User]
     }
 
     type SautiTrader {
@@ -32,6 +23,17 @@ const schema = buildSchema(`
         notes: String
         request_value: String
         request_type: String
+    }
+
+    type User { 
+        id: Int
+        gender: String
+        age: String
+        education: String
+        crossing_freq: String
+        produce: String
+        language: String
+        country_of_residence: String
     }
 `);
 
@@ -45,38 +47,30 @@ const getLanceData = async args => {
     } else return lanceData;
 }
 
-const getCourse = args => {
-    const { id } = args;
-    return coursesData.filter(course => course.id === id)[0];
-}
+const getTraderUsers = async args => {
+    let filtered = [];
+    const traderUsers = await data.getUsers();
 
-const getCourses = args => {
-    console.log('this was hit!')
-    if (args.topic) {
-        const { topic } = args;
-        return coursesData.filter(course => course.topic === topic);
-    } else return coursesData;
-}
+    if (args.gender) {
+        const { gender } = args;
+        filtered = traderUsers.filter(trader => trader.gender === gender)
+    }
+    
+    if (args.age) {
+        const { age } = args;
+        filtered = filtered.filter(trader => trader.age === age)
+    };
 
-const updateCourseTopic = ({ id, topic }) => {
-    coursesData.map(course => {
-        if (course.id === id) {
-            course.topic = topic;
-            return course;
-        }
-    })
-
-    return coursesData.filter(course => course.id === id)[0];
+    return  filtered;
 }
 
 const root = {
-    course: getCourse,
-    courses: getCourses,
-    updateCourseTopic: updateCourseTopic,
-    tradersData: getLanceData
+    tradersData: getLanceData,
+    tradersUsers: getTraderUsers
 }
 
 server.use(express.json())
+server.use(cors());
 
 server.use('/graphql', graphqlHTTP({
     schema,
@@ -89,29 +83,3 @@ server.use('/api/data', dataRouter)
 
 module.exports = server
 
-const coursesData = [
-    {
-        id: 1,
-        title: "Title One", 
-        author: "Bobby",
-        description: "Do stuff",
-        topic: "Tech Stuff",
-        url: "Theurl.com"
-    },
-    {
-        id: 2,
-        title: "Title Two", 
-        author: "Susan",
-        description: "Do More stuff",
-        topic: "Tech Stuff",
-        url: "Theurlforplaying.com"
-    },
-    {
-        id: 3,
-        title: "Title Three", 
-        author: "Henry",
-        description: "Do more stuff again?",
-        topic: "Crazy Stuff",
-        url: "Thecrazyurl.com"
-    }
-]
