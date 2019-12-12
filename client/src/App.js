@@ -2,7 +2,7 @@ import React from 'react';
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 
-import Queries from "./components/Queries";
+import GetData from "./components/GetData";
 import './App.css';
 
 const client = new ApolloClient({ 
@@ -14,7 +14,7 @@ function App() {
     <ApolloProvider client={client}>
       <div className="App">
         <h1> Testing GraphQL </h1>
-        <Queries />
+        <GetData />
        
       </div>
     </ApolloProvider>
