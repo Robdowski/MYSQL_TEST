@@ -6,11 +6,10 @@ import Traders from "./Traders"
 
 const TRADERS_QUERY = gql`
     query TRADERS_QUERY {
-        tradersData {
-            cell_num
-            request_value
-            request_type
-            notes
+        tradersUsers(age: "10-20") {
+            age
+            gender
+            education
         }
     }
 `;
