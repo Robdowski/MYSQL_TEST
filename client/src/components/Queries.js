@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks"
 import { gql } from "apollo-boost";
-import { ResponsiveBar } from "@nivo/bar"
-import Traders from "./Traders"
+import Traders from "./Graph"
 
 const TRADERS_QUERY = gql`
    query getUsers($age: String){
@@ -22,17 +21,17 @@ const GetData = () => {
         variables: variables
     });
 
-    if (loading) return <h1> Loading... </h1>
+    if (loading)  return <h1> Loading... </h1>
 
     return (
         <div>
             <Traders data={data.tradersUsers} />
             <button onClick={(e) => !variables.hasOwnProperty("age") ? setVariables({age: "40-50"}) : setVariables({})}>change state</button>
-            {
+            {/* {
                 data.tradersUsers.map(trader => (
                     console.log(trader)
                 ))
-            }
+            } */}
         </div>
     )
 }
