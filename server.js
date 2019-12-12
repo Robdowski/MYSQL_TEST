@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const server = express()
 
+const cors = require('cors')
 const graphQLHTTP = require('express-graphql')
 
 const schema = require('./schema')
@@ -11,6 +12,8 @@ const root = {
     tradersData: getLanceData,
     tradersUsers: getTraderUsers
 }
+
+server.use(cors())
 
 server.use('/graphql', graphQLHTTP({
     schema,
