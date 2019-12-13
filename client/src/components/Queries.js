@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/react-hooks"
 import { gql } from "apollo-boost";
-import Traders from "./Graph"
+import Graph from "./Graph"
+
+import dataParse from "./dataParse";
 
 const TRADERS_QUERY = gql`
    query getUsers($age: String){
@@ -11,7 +13,6 @@ const TRADERS_QUERY = gql`
             gender
             education
         }
-       
     }
 `;
 
@@ -23,9 +24,11 @@ const GetData = () => {
 
     if (loading)  return <h1> Loading... </h1>
 
+    const chartData = dataParse("gender", data.tradersUsers);
+
     return (
         <div>
-            <Traders data={data.tradersUsers} />
+            <Graph data={chartData} />
             <button onClick={(e) => !variables.hasOwnProperty("age") ? setVariables({age: "40-50"}) : setVariables({})}>change state</button>
             {/* {
                 data.tradersUsers.map(trader => (
