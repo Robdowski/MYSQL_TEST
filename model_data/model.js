@@ -1,8 +1,15 @@
 const db = require('../data/dbconfig')
 
 const getData = () => {
-   return db.select('*').from('platform_sessions').limit(50)
+   return db('platform_sessions as ps')
+      .leftJoin('information_demand as id', 'ps.cell_num', 'id.cell_num')
+      .leftJoin('request_type as rt', 'id.request_type_id', 'rt.id')
+      .limit(75)
+}
+
+const getUsers = () => {
+   return db('users')
 }
 
 
-module.exports = { getData }
+module.exports = { getData, getUsers }
