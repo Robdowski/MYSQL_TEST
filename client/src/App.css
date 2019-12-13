@@ -1,5 +1,4 @@
 .App {
-  height: 700px;
   text-align: center;
 }
 
@@ -36,4 +35,9 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.Graph-Container {
+  height: 400px;
+  width: 800px;
 }
