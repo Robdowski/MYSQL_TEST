@@ -7,7 +7,7 @@ console.log(props.chartData)
            <div className="Graph-Container">
               <ResponsiveBar
                 data={props.data}
-                  keys={[ 'Primary', 'Secondary', 'University/College', 'No formal education', 'No Response']}
+                  keys={[ 'Primary', 'Secondary', 'University/College', 'No formal education', 'null']}
                 indexBy="gender"
                 groupMode={"grouped"}
                 margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
