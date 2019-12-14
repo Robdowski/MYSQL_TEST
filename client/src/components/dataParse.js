@@ -1,5 +1,4 @@
 const dataParse = (crossFilter, data, indexBy) => {
-
     const keys = getIndex(data, "gender")
     // setItem(data, keys, "education", "gender")
 
@@ -42,12 +41,18 @@ const setCrossedItems = (data, keys, crossFilter, indexBy) => {
         })
 
         // Builds the object that will be sent to the graph component
-        crossFilteredData.forEach(obj => keys[index] = {...keys[index], [`${Object.keys(obj)[0]}`]: [`${Object.values(obj)[0]}`][0] } )
+        crossFilteredData.forEach(obj => {
+            if ([`${Object.keys(obj)[0]}`][0] === "null") {
+                return keys[index] = {...keys[index], ["No Response"]: [`${Object.values(obj)[0]}`][0] } 
+            } else {
+                return keys[index] = {...keys[index], [`${Object.keys(obj)[0]}`]: [`${Object.values(obj)[0]}`][0] } 
+            }
+        })
     })
 
     // Replaces "null" values with "No Response"
     keys.forEach(obj => obj[`${indexBy}`] === null && (obj[`${indexBy}`] = "No Response"))
-
+    console.log(keys)
     return keys;
 };
 
