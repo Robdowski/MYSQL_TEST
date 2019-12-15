@@ -24,11 +24,12 @@ const GetData = () => {
 
     if (loading)  return <h1> Loading... </h1>
 
+    console.log(data)
     const chartData = dataParse("gender", data.tradersUsers);
 
     return (
         <div>
-            <Graph data={chartData} />
+            <Graph data={chartData.keys} keys={chartData.crossFilterKeysArr} />
             <button onClick={(e) => !variables.hasOwnProperty("age") ? setVariables({age: "40-50"}) : setVariables({})}>change state</button>
             {/* {
                 data.tradersUsers.map(trader => (
