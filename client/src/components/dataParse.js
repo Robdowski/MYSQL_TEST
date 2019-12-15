@@ -10,7 +10,7 @@ const getIndex = (data, indexBy) => {
     const cleanedArr = data.map(item => item = { [`${indexBy}`]: item[`${indexBy}`] })
 
     // Reduces down to a set of the possible key:value pairs
-    const reducedArr =[...new Set(cleanedArr.map(JSON.stringify))].map(JSON.parse);
+    const reducedArr = [...new Set(cleanedArr.map(JSON.stringify))].map(JSON.parse);
 
     return reducedArr;
     // [{gender: male}, {gender: female}, {gender: null},]
@@ -52,8 +52,7 @@ const setCrossedItems = (data, keys, crossFilter, indexBy) => {
 
     // Replaces "null" values with "No Response"
     keys.forEach(obj => obj[`${indexBy}`] === null && (obj[`${indexBy}`] = "No Response"))
-    console.log(keys)
-    return keys;
+    return { keys, crossFilterKeysArr };
 };
 
 const setItem = (data, keys, indexBy) => {
