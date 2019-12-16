@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { ResponsiveBar } from "@nivo/bar"
 
 const Graph = props => {
-console.log(props.chartData)
+console.log(props.keys)
+console.log(props.data)
         return (
            <div className="Graph-Container">
               <ResponsiveBar
                 data={props.data}
-                  keys={[ 'Primary', 'Secondary', 'University/College', 'No formal education', 'No Response']}
+                keys={props.keys}
                 indexBy="gender"
                 groupMode={"grouped"}
                 margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
