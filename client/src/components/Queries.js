@@ -18,14 +18,12 @@ const TRADERS_QUERY = gql`
 
 const GetData = () => {
     const [variables, setVariables] = useState({});
-    const { loading, error, data } = useQuery(TRADERS_QUERY, {
-        variables: variables
-    });
+    const { loading, error, data } = useQuery(TRADERS_QUERY, { variables });
 
     if (loading)  return <h1> Loading... </h1>
 
     console.log(data)
-    const chartData = dataParse("gender", data.tradersUsers);
+    const chartData = dataParse("gender", data.tradersUsers, "education");
 
     return (
         <div>
